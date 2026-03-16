@@ -38,7 +38,6 @@ class ClienteController extends Controller
         if ($user->hasRole('admin')) {
             $clientes = Cliente::with('vendedor', 'provincia')->paginate(10);
         } else {
-            // Para usuarios no administradores paginamos también (para poder usar ->links() en la vista)
             $clientes = $user->clientes()->with('vendedor', 'provincia')->paginate(10);
         }
         return view('clientes.index', compact('clientes'));

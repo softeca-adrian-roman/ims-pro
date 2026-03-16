@@ -47,7 +47,7 @@ Route::middleware(['auth'])->group(function () {
         ->name('clientes.vehiculos.destroy')
         ->middleware(PermissionMiddleware::class . ':asignar vehiculos');
 
-    Route::resource('vendedores', VendedorController::class)->except('show')
+    Route::resource('vendedores', VendedorController::class)->except('show')->parameters(['vendedores' => 'vendedor'])
         ->middleware([
             PermissionMiddleware::class . ':ver vendedores',
             PermissionMiddleware::class . ':crear vendedores',

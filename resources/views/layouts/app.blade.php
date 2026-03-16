@@ -37,19 +37,11 @@
                         {{ $slot }}
 
                         @stack('js')
-
-
-                        @if (session('swal'))
-                            <script>
-                                Swal.fire(@json(session('swal')));
-                            </script>
-                        @endif
                     </main>
                 </div>
             </div>
         </div>
-
-        {{-- Flux (web components) scripts must be present for <flux:*> tags to work --}}
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         @fluxScripts
     </body>
 </html>
