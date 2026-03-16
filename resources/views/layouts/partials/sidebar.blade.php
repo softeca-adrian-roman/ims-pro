@@ -30,6 +30,7 @@
 @endphp
         <flux:sidebar sticky collapsible="mobile" class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
             <flux:sidebar.header>
+                @include('partials.head')
                 <a href="{{ route('dashboard') }}" class="flex items-center gap-2 px-2 text-lg font-semibold">
                     {{ config('app.name', 'IMS') }}
                 </a>

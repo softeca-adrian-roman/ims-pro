@@ -22,7 +22,7 @@
                 {{-- Sidebar partial (Flux components) --}}
                 @includeIf('layouts.partials.sidebar')
 
-                <div class="flex-1">
+                <div class="flex-1 lg:pl-6">
                     <!-- Page Heading -->
                     @isset($header)
                         <header class="bg-white shadow">
