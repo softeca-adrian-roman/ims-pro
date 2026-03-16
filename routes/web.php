@@ -15,6 +15,7 @@ Route::get('/', function () {
 require __DIR__.'/auth.php';
 
 Route::middleware(['auth'])->group(function () {
+    Route::view('dashboard', 'dashboard')->name('dashboard');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -46,14 +47,11 @@ Route::middleware(['auth'])->group(function () {
         ->name('clientes.vehiculos.destroy')
         ->middleware(PermissionMiddleware::class . ':asignar vehiculos');
 
-    Route::resource('vendedores', VendedorController::class)->except('show')
+    Route::resource('vendedores', VendedorController::class)->except('show')->parameters(['vendedores' => 'vendedor'])
         ->middleware([
             PermissionMiddleware::class . ':ver vendedores',
             PermissionMiddleware::class . ':crear vendedores',
             PermissionMiddleware::class . ':editar vendedores',
             PermissionMiddleware::class . ':eliminar vendedores',
         ]);
-    Route::get('/dashboard', function () {
-    return view('dashboard');
-    })->name('dashboard');
 });

@@ -1,21 +1,51 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
-    <head>
-        @include('partials.head')
-    </head>
-    <body class="min-h-screen bg-white">
-        <flux:sidebar sticky collapsible="mobile" class="border-e border-zinc-200 bg-zinc-50">
+@php
+    $groups = [
+        'Platform' => [
+            [
+                'name'  => 'Dashboard',
+                'icon'  => 'home',
+                'url'   => route('dashboard'),
+                'active'=> request()->routeIs('dashboard'),
+            ],
+            [
+                'name'  => 'Clientes',
+                'icon'  => 'users',
+                'url'   => route('clientes.index'),
+                'active'=> request()->routeIs('clientes.*'),
+            ],
+            [
+                'name'  => 'Vehículos',
+                'icon'  => 'truck',
+                'url'   => route('vehiculos.index'),
+                'active'=> request()->routeIs('vehiculos.*'),
+            ],
+            [
+                'name'  => 'Vendedores',
+                'icon'  => 'user-group',
+                'url'   => route('vendedores.index'),
+                'active'=> request()->routeIs('vendedores.*'),
+            ],
+        ],
+    ];
+@endphp
+        <flux:sidebar sticky collapsible="mobile" class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
             <flux:sidebar.header>
-                <x-app-logo :sidebar="true" href="{{ route('dashboard') }}" wire:navigate />
+                <a href="{{ route('dashboard') }}" class="flex items-center gap-2 px-2 text-lg font-semibold">
+                    {{ config('app.name', 'IMS') }}
+                </a>
                 <flux:sidebar.collapse class="lg:hidden" />
             </flux:sidebar.header>
 
             <flux:sidebar.nav>
-                <flux:sidebar.group :heading="__('Platform')" class="grid">
-                    <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
-                        {{ __('Dashboard') }}
-                    </flux:sidebar.item>
-                </flux:sidebar.group>
+                @foreach ($groups as $group => $links)
+                    <flux:sidebar.group :heading="__($group)" class="grid">
+                        @foreach ($links as $link)
+                            <flux:sidebar.item icon="{{ $link['icon'] }}" :href="$link['url']" :current="$link['active']" wire:navigate>
+                                {{ __($link['name']) }}
+                            </flux:sidebar.item>
+                        @endforeach
+                    </flux:sidebar.group>
+                @endforeach
             </flux:sidebar.nav>
 
             <flux:spacer />
@@ -87,9 +117,3 @@
                 </flux:menu>
             </flux:dropdown>
         </flux:header>
-
-        {{ $slot }}
-
-        @fluxScripts
-    </body>
-</html>

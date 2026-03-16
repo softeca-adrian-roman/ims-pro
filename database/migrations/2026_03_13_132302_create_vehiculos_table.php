@@ -16,6 +16,7 @@ return new class extends Migration
         $table->string('nombre');
         $table->string('referencia')->unique();
         $table->integer('stock')->default(0);
+    $table->decimal('precio_base', 10, 2)->default(0);
         $table->timestamps();
         });
     }
