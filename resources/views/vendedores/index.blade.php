@@ -28,15 +28,43 @@
                     <td>{{ $v->name }}</td>
                     <td>{{ $v->email }}</td>
                     <td>
-                        <a href="{{ route('vendedores.edit', $v) }}">Editar</a>
-                        <form action="{{ route('vendedores.destroy', $v) }}" method="POST" style="display:inline-block">
+                        <a href="{{ route('vendedores.edit', $v) }}" class="ml-2 text-indigo-600">Editar</a>
+                        <form action="{{ route('vendedores.destroy', $v) }}" method="POST" style="display:inline-block" class="delete-form ml-2">
                             @csrf
                             @method('DELETE')
-                            <button type="submit">Borrar</button>
+                            <button type="submit" class="text-red-600 hover:text-red-900">Borrar</button>
                         </form>
                     </td>
                 </tr>
                 @endforeach
+                 @push('js')
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            let forms = document.querySelectorAll('.delete-form');
+
+                            forms.forEach(form => {
+                                form.addEventListener('submit', (e) => {
+                                    e.preventDefault();
+
+                                    Swal.fire({
+                                        title: "¿Quieres eliminar este cliente?",
+                                        text: "Estás seguro de este cambio?",
+                                        icon: "warning",
+                                        showCancelButton: true,
+                                        confirmButtonColor: "#3085d6",
+                                        cancelButtonColor: "#d33",
+                                        confirmButtonText: "Sí, eliminar",
+                                        cancelButtonText: "Cancelar"
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            form.submit();
+                                        }
+                                    });
+                                });
+                            });
+                        });
+                    </script>
+                @endpush
             </tbody>
         </table>
         <div class="mt-4">{{ $vendedores->links() }}</div>

@@ -39,15 +39,43 @@
                         <a href="{{ route('clientes.show', $cliente) }}" class="text-blue-600">Ver</a>
                         @can('editar clientes') <a href="{{ route('clientes.edit', $cliente) }}" class="ml-2 text-indigo-600">Editar</a> @endcan
                         @can('eliminar clientes')
-                            <form action="{{ route('clientes.destroy', $cliente) }}" method="POST" style="display:inline-block" class="js-confirm-delete ml-2" data-confirm-title="Eliminar cliente" data-confirm-text="¿Estás seguro de eliminar este cliente?">
+                            <form action="{{ route('clientes.destroy', $cliente) }}" method="POST" style="display:inline-block" class="delete-form inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-red-600">Borrar</button>
+                                <button type="submit" class="text-red-600 hover:text-red-900">Borrar</button>
                             </form>
                         @endcan
                     </td>
                 </tr>
                 @endforeach
+                @push('js')
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            let forms = document.querySelectorAll('.delete-form');
+
+                            forms.forEach(form => {
+                                form.addEventListener('submit', (e) => {
+                                    e.preventDefault();
+
+                                    Swal.fire({
+                                        title: "¿Quieres eliminar este cliente?",
+                                        text: "Estás seguro de este cambio?",
+                                        icon: "warning",
+                                        showCancelButton: true,
+                                        confirmButtonColor: "#3085d6",
+                                        cancelButtonColor: "#d33",
+                                        confirmButtonText: "Sí, eliminar",
+                                        cancelButtonText: "Cancelar"
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            form.submit();
+                                        }
+                                    });
+                                });
+                            });
+                        });
+                    </script>
+                @endpush
             </tbody>
         </table>
     </div>
