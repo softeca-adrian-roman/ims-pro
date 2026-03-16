@@ -12,68 +12,61 @@
             @csrf
 
             <div>
-                <label class="block">Nombre</label>
-                <input name="nombre" value="{{ old('nombre') }}" class="input" required />
+                <flux:input name="nombre" label="Nombre" value="{{ old('nombre') }}" class="input" required />
                 @error('nombre') <p class="text-red-600">{{ $message }}</p> @enderror
             </div>
 
             <div>
-                <label class="block">Email</label>
-                <input name="email" type="email" value="{{ old('email') }}" class="input" required />
+                <flux:input name="email" type="email" label="Email" value="{{ old('email') }}" class="input" required />
                 @error('email') <p class="text-red-600">{{ $message }}</p> @enderror
             </div>
 
             <div>
-                <label class="block">Teléfono</label>
-                <input name="telefono" value="{{ old('telefono') }}" class="input" />
+                <flux:input name="telefono" label="Teléfono" value="{{ old('telefono') }}" class="input" />
                 @error('telefono') <p class="text-red-600">{{ $message }}</p> @enderror
             </div>
 
             <div>
-                <label class="block">Código postal</label>
-                <input name="codigo_postal" value="{{ old('codigo_postal') }}" class="input" />
+                <flux:input name="codigo_postal" label="Código postal" value="{{ old('codigo_postal') }}" class="input" />
                 @error('codigo_postal') <p class="text-red-600">{{ $message }}</p> @enderror
             </div>
 
             <div>
-                <label class="block">Provincia</label>
-                <select name="provincia_id" required class="input">
+                <flux:select name="provincia_id" label="Provincia" required class="input">
                     <option value="">Seleccionar</option>
                     @foreach($provincias as $prov)
                         <option value="{{ $prov->id }}" @selected(old('provincia_id') == $prov->id)>{{ $prov->nombre }}</option>
                     @endforeach
-                </select>
+                </flux:select>
                 @error('provincia_id') <p class="text-red-600">{{ $message }}</p> @enderror
             </div>
 
             <div>
-                <label class="block">Tipo</label>
-                <select name="tipo" required class="input">
+                <flux:select name="tipo" label="Tipo" required class="input">
                     <option value="">Seleccionar</option>
                     @foreach($tipos as $t)
                         <option value="{{ $t }}" @selected(old('tipo') == $t)>{{ ucfirst($t) }}</option>
                     @endforeach
-                </select>
+                </flux:select>
                 @error('tipo') <p class="text-red-600">{{ $message }}</p> @enderror
             </div>
 
             @if(isset($vendedores) && $vendedores->count() > 1)
                 <div>
-                    <label class="block">Vendedor</label>
-                    <select name="vendedor_id" class="input">
+                    <flux:select name="vendedor_id" label="Vendedor" class="input">
                         <option value="">Seleccionar</option>
                         @foreach($vendedores as $v)
                             <option value="{{ $v->id }}" @selected(old('vendedor_id') == $v->id)>{{ $v->name }}</option>
                         @endforeach
-                    </select>
+                    </flux:select>
                     @error('vendedor_id') <p class="text-red-600">{{ $message }}</p> @enderror
                 </div>
             @elseif(isset($vendedores) && $vendedores->count() === 1)
-                <input type="hidden" name="vendedor_id" value="{{ $vendedores->first()->id }}" />
+                <flux:input type="hidden" name="vendedor_id" label="Vendedor" value="{{ $vendedores->first()->id }}" />
             @endif
 
             <div>
-                <button class="btn btn-primary" type="submit">Crear</button>
+                <flux:button class="btn btn-primary" type="submit">Crear</flux:button>
                 <a href="{{ route('clientes.index') }}" class="btn">Cancelar</a>
             </div>
         </form>

@@ -6,18 +6,15 @@
             @csrf
             @method('PUT')
             <div>
-                <label class="block">Nombre</label>
-                <input name="nombre" value="{{ old('nombre', $vehiculo->nombre) }}" class="input" required />
+                <flux:input name="nombre" label="Nombre" value="{{ old('nombre', $vehiculo->nombre) }}" class="input" required />
                 @error('nombre') <p class="text-red-600">{{ $message }}</p> @enderror
             </div>
             <div>
-                <label class="block">Referencia</label>
-                <input name="referencia" value="{{ old('referencia', $vehiculo->referencia) }}" class="input" required />
+                <flux:input name="referencia" label="Referencia" value="{{ old('referencia', $vehiculo->referencia) }}" class="input" required />
                 @error('referencia') <p class="text-red-600">{{ $message }}</p> @enderror
             </div>
             <div>
-                <label class="block">Stock</label>
-                <input name="stock" type="number" value="{{ old('stock', $vehiculo->stock) }}" class="input" min="0" />
+                <flux:input name="stock" type="number" label="Stock" value="{{ old('stock', $vehiculo->stock) }}" class="input" min="0" />
                 @error('stock') <p class="text-red-600">{{ $message }}</p> @enderror
             </div>
             <div>

@@ -12,7 +12,7 @@
     </div>
 
     @if(session('success'))
-        <div class="mb-4 p-4 bg-green-50 border border-green-200 rounded">{{ session('success') }}</div>
+        <div data-flash-success="{{ session('success') }}" style="display:none"></div>
     @endif
 
     <div class="overflow-hidden">
@@ -39,7 +39,7 @@
                         <a href="{{ route('clientes.show', $cliente) }}" class="text-blue-600">Ver</a>
                         @can('editar clientes') <a href="{{ route('clientes.edit', $cliente) }}" class="ml-2 text-indigo-600">Editar</a> @endcan
                         @can('eliminar clientes')
-                            <form action="{{ route('clientes.destroy', $cliente) }}" method="POST" style="display:inline-block" class="ml-2">
+                            <form action="{{ route('clientes.destroy', $cliente) }}" method="POST" style="display:inline-block" class="js-confirm-delete ml-2" data-confirm-title="Eliminar cliente" data-confirm-text="¿Estás seguro de eliminar este cliente?">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="text-red-600">Borrar</button>
