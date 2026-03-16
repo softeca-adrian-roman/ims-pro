@@ -22,6 +22,7 @@ class VehiculoFactory extends Factory
             'nombre' => $this->faker->word() . ' ' . $this->faker->randomLetter,
             'referencia' => strtoupper($this->faker->bothify('??####')),
             'stock' => $this->faker->numberBetween(0, 50),
+            'precio_base' => $this->faker->randomFloat(2, 5000, 50000),
         ];
     }
 }

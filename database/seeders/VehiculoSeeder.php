@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Cliente;
 use App\Models\Vehiculo;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class VehiculoSeeder extends Seeder
@@ -19,6 +18,7 @@ class VehiculoSeeder extends Seeder
             'nombre' => 'Seat Ibiza',
             'referencia' => 'SEAT123',
             'stock' => 10,
+            'precio_base' => 15000.00,
         ]);
 
         // Crear 9 vehículos más con factory
@@ -32,8 +32,10 @@ class VehiculoSeeder extends Seeder
             $numClientes = rand(1, min(5, $clientes->count()));
             $clientesAsignados = $clientes->random($numClientes);
             foreach ($clientesAsignados as $cliente) {
+                // Calcular precio según el tipo del cliente usando el método del modelo
+                $precio = $vehiculo->precioPara($cliente);
                 $vehiculo->clientes()->attach($cliente->id, [
-                    'precio' => fake()->randomFloat(2, 5000, 50000)
+                    'precio' => $precio
                 ]);
             }
         }

@@ -30,11 +30,14 @@ class ClienteVehiculoController extends Controller
         $this->authorizeCliente($cliente);
         $request->validate([
             'vehiculo_id' => 'required|exists:vehiculos,id',
-            'precio' => 'required|numeric|min:0',
         ]);
 
+        $vehiculo = Vehiculo::findOrFail($request->vehiculo_id);
+        // Calcular el precio según el tipo del cliente
+        $precio = $vehiculo->precioPara($cliente);
+
         $cliente->vehiculos()->syncWithoutDetaching([
-            $request->vehiculo_id => ['precio' => $request->precio]
+            $vehiculo->id => ['precio' => $precio]
         ]);
 
         return redirect()->route('clientes.show', $cliente)

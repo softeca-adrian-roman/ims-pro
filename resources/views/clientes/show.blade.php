@@ -21,10 +21,9 @@
             @csrf
             <select name="vehiculo_id">
                 @foreach($vehiculosDisponibles as $veh)
-                    <option value="{{ $veh->id }}">{{ $veh->nombre }} ({{ $veh->referencia }})</option>
+                    <option value="{{ $veh->id }}">{{ $veh->nombre }} ({{ $veh->referencia }}) - Precio sugerido: {{ number_format($veh->precioPara($cliente), 2) }}</option>
                 @endforeach
             </select>
-            <input type="number" name="precio" step="0.01" placeholder="Precio" required />
             <button type="submit">Asignar</button>
         </form>
     </div>
