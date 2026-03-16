@@ -9,7 +9,6 @@ use App\Models\User;
 use App\Models\Vehiculo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 
 class ClienteController extends Controller
 {
@@ -29,7 +28,6 @@ class ClienteController extends Controller
     }
     public function index()
     {
-        Gate::authorize('ver clientes');
         $user = Auth::user();
         /** @var \App\Models\User|null $user */
         if (! $user) {
@@ -45,7 +43,6 @@ class ClienteController extends Controller
 
     public function create()
     {
-       Gate::authorize('crear clientes');
         $provincias = Provincia::all();
         $tipos = ClienteTipo::values();
         $user = Auth::user();
@@ -65,7 +62,6 @@ class ClienteController extends Controller
 
     public function store(Request $request)
     {
-        Gate::authorize('crear clientes');
         $data = $request->validate([
             'nombre' => 'required',
             'email' => 'required|email|unique:clientes',
@@ -93,7 +89,6 @@ class ClienteController extends Controller
 
     public function show(Cliente $cliente)
     {
-        Gate::authorize('ver clientes');
         $this->authorizeCliente($cliente);
         $vehiculosAsignados = $cliente->vehiculos;
         $vehiculosDisponibles = Vehiculo::whereDoesntHave('clientes', function ($q) use ($cliente) {
@@ -104,7 +99,6 @@ class ClienteController extends Controller
 
     public function edit(Cliente $cliente)
     {
-        Gate::authorize('editar clientes');
         $this->authorizeCliente($cliente);
         $provincias = Provincia::all();
         $tipos = ClienteTipo::values();
@@ -125,7 +119,6 @@ class ClienteController extends Controller
 
     public function update(Request $request, Cliente $cliente)
     {
-        Gate::authorize('editar clientes');
         $this->authorizeCliente($cliente);
         $data = $request->validate([
             'nombre' => 'required',
@@ -154,7 +147,6 @@ class ClienteController extends Controller
 
     public function destroy(Cliente $cliente)
     {
-        Gate::authorize('eliminar clientes');
         $this->authorizeCliente($cliente);
         $cliente->delete();
         return redirect()->route('clientes.index')->with('success', 'Cliente eliminado.');
