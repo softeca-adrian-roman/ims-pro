@@ -1,4 +1,4 @@
-<x-layouts.app>
+<x-app-layout>
     <div class="container mx-auto">
         <h1 class="text-2xl font-bold mb-4">Crear Vehículo</h1>
 
@@ -25,4 +25,4 @@
             </div>
         </form>
     </div>
-</x-layouts.app>
+</x-app-layout>

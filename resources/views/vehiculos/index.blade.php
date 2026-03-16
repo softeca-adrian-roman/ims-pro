@@ -1,4 +1,4 @@
-<x-layouts.app>
+<x-app-layout>
     <div class="flex items-center justify-between mb-4">
         <h1 class="text-2xl font-bold">Vehículos</h1>
         @can('crear vehiculos')
@@ -44,4 +44,4 @@
     </div>
 
     <div class="mt-4">{{ $vehiculos->links() }}</div>
-</x-layouts.app>
+</x-app-layout>

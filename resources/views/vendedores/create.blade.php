@@ -1,4 +1,4 @@
-<x-layouts.app>
+<x-app-layout>
     <flux:breadcrumbs>
         <flux:breadcrumbs.item href="{{ route('dashboard') }}">Dashboard</flux:breadcrumbs.item>
         <flux:breadcrumbs.item href="{{ route('vendedores.index') }}">Vendedores</flux:breadcrumbs.item>
@@ -16,4 +16,4 @@
             <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">Crear</button>
         </form>
     </div>
-</x-layouts.app>
+</x-app-layout>

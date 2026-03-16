@@ -1,4 +1,4 @@
-<x-layouts.app>
+<x-app-layout>
     <flux:breadcrumbs>
         <flux:breadcrumbs.item href="{{ route('dashboard') }}">Dashboard</flux:breadcrumbs.item>
         <flux:breadcrumbs.item href="{{ route('vehiculos.index') }}">Vehículos</flux:breadcrumbs.item>
@@ -10,4 +10,4 @@
         <p>Referencia: {{ $vehiculo->referencia }}</p>
         <p>Stock: {{ $vehiculo->stock }}</p>
     </div>
-</x-layouts.app>
+</x-app-layout>
