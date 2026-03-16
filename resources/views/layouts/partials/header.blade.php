@@ -40,8 +40,10 @@
                     />
                 </flux:tooltip>
             </flux:navbar>
+            @if (auth()->user())
+                <x-desktop-user-menu />
 
-            <x-desktop-user-menu />
+            @endif
         </flux:header>
 
         <!-- Mobile Menu -->
