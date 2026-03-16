@@ -1,4 +1,8 @@
 <x-app-layout>
+    <flux:breadcrumbs>
+        <flux:breadcrumbs.item href="{{ route('dashboard') }}">Dashboard</flux:breadcrumbs.item>
+        <flux:breadcrumbs.item>Vehículos</flux:breadcrumbs.item>
+    </flux:breadcrumbs>
     <div class="flex items-center justify-between mb-4">
         <h1 class="text-2xl font-bold">Vehículos</h1>
         @can('crear vehiculos')

@@ -1,4 +1,9 @@
 <x-app-layout>
+    <flux:breadcrumbs>
+        <flux:breadcrumbs.item href="{{ route('dashboard') }}">Dashboard</flux:breadcrumbs.item>
+        <flux:breadcrumbs.item href="{{ route('vehiculos.index') }}">Vehículos</flux:breadcrumbs.item>
+        <flux:breadcrumbs.item>Editar</flux:breadcrumbs.item>
+    </flux:breadcrumbs>
     <div class="container mx-auto">
         <h1 class="text-2xl font-bold mb-4">Editar Vehículo</h1>
 
