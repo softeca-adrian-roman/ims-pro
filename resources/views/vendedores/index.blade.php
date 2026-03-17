@@ -46,7 +46,7 @@
                                 e.preventDefault();
 
                                 Swal.fire({
-                                    title: "¿Quieres eliminar este cliente?",
+                                    title: "¿Quieres eliminar este vendedor?",
                                     text: "Estás seguro de este cambio?",
                                     icon: "warning",
                                     showCancelButton: true,
