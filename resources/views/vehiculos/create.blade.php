@@ -1,4 +1,9 @@
 <x-app-layout>
+    <flux:breadcrumbs>
+        <flux:breadcrumbs.item href="{{ route('dashboard') }}">Dashboard</flux:breadcrumbs.item>
+        <flux:breadcrumbs.item href="{{ route('vehiculos.index') }}">Vehículos</flux:breadcrumbs.item>
+        <flux:breadcrumbs.item>Crear</flux:breadcrumbs.item>
+    </flux:breadcrumbs>
     <div class="container mx-auto">
         <h1 class="text-2xl font-bold mb-4">Crear Vehículo</h1>
 
@@ -17,8 +22,8 @@
                 @error('stock') <p class="text-red-600">{{ $message }}</p> @enderror
             </div>
             <div>
-                <button class="btn btn-primary" type="submit">Crear</button>
-                <a href="{{ route('vehiculos.index') }}" class="btn">Cancelar</a>
+                <flux:button size="sm" variant="outline" class="ml-2" type="submit">Crear</flux:button>
+                <flux:button size="sm" variant="danger" class="ml-2" href="{{ route('vehiculos.index') }}">Cancelar</flux:button>
             </div>
         </form>
     </div>

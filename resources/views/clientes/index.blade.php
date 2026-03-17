@@ -10,11 +10,9 @@
             <a href="{{ route('clientes.create') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md">Crear Cliente</a>
         @endcan
     </div>
-
     @if(session('success'))
         <div data-flash-success="{{ session('success') }}" style="display:none"></div>
     @endif
-
     <div class="overflow-hidden">
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
@@ -36,13 +34,13 @@
                     <td class="px-6 py-4 whitespace-nowrap">{{ $cliente->provincia->nombre ?? '' }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ ucfirst($cliente->tipo->value) }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-right">
-                        <a href="{{ route('clientes.show', $cliente) }}" class="text-blue-600">Ver</a>
-                        @can('editar clientes') <a href="{{ route('clientes.edit', $cliente) }}" class="ml-2 text-indigo-600">Editar</a> @endcan
+                        <flux:button size="sm" variant="outline" href="{{ route('clientes.show', $cliente) }}" class="ml-2">Ver</flux:button>
+                        @can('editar clientes') <flux:button size="sm" variant="filled" href="{{ route('clientes.edit', $cliente) }}" class="ml-2">Editar</flux:button> @endcan
                         @can('eliminar clientes')
-                            <form action="{{ route('clientes.destroy', $cliente) }}" method="POST" style="display:inline-block" class="delete-form inline">
+                            <form action="{{ route('clientes.destroy', $cliente) }}" method="POST" style="display:inline-block" class="ml-2 delete-form inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-red-600 hover:text-red-900">Borrar</button>
+                                <flux:button size="sm" variant="danger" type="submit">Borrar</flux:button>
                             </form>
                         @endcan
                     </td>
@@ -79,6 +77,5 @@
             </tbody>
         </table>
     </div>
-
     <div class="mt-4">{{ $clientes->links() }}</div>
 </x-app-layout>

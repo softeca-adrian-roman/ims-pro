@@ -10,21 +10,28 @@
         <p>{{ $cliente->email }}</p>
         <p>{{ $cliente->telefono }}</p>
         <h2 class="mt-4">Vehículos asignados</h2>
-        <ul>
+        <ul class="space-y-4">
             @foreach($vehiculosAsignados as $v)
-                <li>{{ $v->nombre }} - {{ $v->pivot->precio }} <form method="POST" action="{{ route('clientes.vehiculos.destroy', [$cliente, $v]) }}">@csrf @method('DELETE')<button type="submit">Desasignar</button></form></li>
+                <li>
+                    <div class="mt-4 mb-2">
+                    {{ $v->nombre }} - {{ $v->pivot->precio }}
+                    </div>
+                <form method="POST" class="space-y-4" action="{{ route('clientes.vehiculos.destroy', [$cliente, $v]) }}">@csrf @method('DELETE')
+                <flux:button size="sm" variant="danger" class="space-y-4 ml-2" type="submit">Designar</flux:button>
+                </form></li>
             @endforeach
         </ul>
 
         <h3 class="mt-4">Asignar vehículo</h3>
-        <form method="POST" action="{{ route('clientes.vehiculos.store', $cliente) }}">
+        <form method="POST" class="space-y-4" action="{{ route('clientes.vehiculos.store', $cliente) }}">
             @csrf
-            <select name="vehiculo_id">
+            <flux:select name="vehiculo_id">
                 @foreach($vehiculosDisponibles as $veh)
                     <option value="{{ $veh->id }}">{{ $veh->nombre }} ({{ $veh->referencia }}) - Precio sugerido: {{ number_format($veh->precioPara($cliente), 2) }}</option>
                 @endforeach
-            </select>
-            <button type="submit">Asignar</button>
+            </flux:select>
+            <flux:button size="sm" variant="outline" class="ml-2" type="submit">Asignar</flux:button>
+            <flux:button size="sm" variant="danger" class="ml-2" href="{{ route('clientes.index') }}" >Cancelar</flux:button>
         </form>
     </div>
 </x-app-layout>

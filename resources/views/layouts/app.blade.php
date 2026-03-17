@@ -14,34 +14,13 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 flex flex-col">
-            @include('layouts.navigation')
-
-            <div class="lg:flex grow">
-                {{-- Sidebar partial (Flux components) --}}
-                @includeIf('layouts.partials.sidebar')
-
-                <div class="flex-1">
-                    <!-- Page Heading -->
-                    @isset($header)
-                        <header class="bg-white shadow">
-                            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                                {{ $header }}
-                            </div>
-                        </header>
-                    @endisset
-
-                    <!-- Page Content -->
-                    <main>
-                        {{ $slot }}
-
-                        @stack('js')
-                    </main>
-                </div>
-            </div>
-        </div>
+    <body class="font-sans antialiased min-h-screen bg-gray-100 dark:bg-gray-900">
+            @include('layouts.partials.sidebar')
+                <flux:main>
+                    {{ $slot }}
+                </flux:main>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         @fluxScripts
+        @stack('js')
     </body>
 </html>

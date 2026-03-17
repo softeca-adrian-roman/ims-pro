@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
+// ...existing imports...
 
 class VendedorController extends Controller
 {
@@ -13,7 +13,6 @@ class VendedorController extends Controller
      */
     public function index()
     {
-        Gate::authorize('ver vendedores');
 
         $vendedores = User::role('responsable_de_zona')->paginate(10);
 
@@ -25,7 +24,6 @@ class VendedorController extends Controller
      */
     public function create()
     {
-        Gate::authorize('crear vendedores');
         return view('vendedores.create');
     }
 
@@ -34,7 +32,6 @@ class VendedorController extends Controller
      */
     public function store(Request $request)
     {
-        Gate::authorize('crear vendedores');
         $data = $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
@@ -56,7 +53,6 @@ class VendedorController extends Controller
      */
     public function show(User $vendedor)
     {
-        Gate::authorize('ver vendedores');
         return view('vendedores.show', compact('vendedor'));
     }
 
@@ -65,7 +61,6 @@ class VendedorController extends Controller
      */
     public function edit(User $vendedor)
     {
-        Gate::authorize('editar vendedores');
         return view('vendedores.edit', compact('vendedor'));
     }
 
@@ -74,7 +69,6 @@ class VendedorController extends Controller
      */
     public function update(Request $request, User $vendedor)
     {
-        Gate::authorize('editar vendedores');
         $data = $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $vendedor->id,
@@ -96,7 +90,6 @@ class VendedorController extends Controller
      */
     public function destroy(User $vendedor)
     {
-        Gate::authorize('eliminar vendedores');
         $vendedor->delete();
         return redirect()->route('vendedores.index')->with('success', 'Vendedor eliminado.');
     }

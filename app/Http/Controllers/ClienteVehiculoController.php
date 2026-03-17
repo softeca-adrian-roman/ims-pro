@@ -6,7 +6,7 @@ use App\Models\Cliente;
 use App\Models\Vehiculo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
+// ...existing imports...
 
 class ClienteVehiculoController extends Controller
 {
@@ -26,7 +26,6 @@ class ClienteVehiculoController extends Controller
     }
     public function store(Request $request, Cliente $cliente)
     {
-        Gate::authorize('asignar vehiculos');
         $this->authorizeCliente($cliente);
         $request->validate([
             'vehiculo_id' => 'required|exists:vehiculos,id',
@@ -46,7 +45,6 @@ class ClienteVehiculoController extends Controller
 
     public function destroy(Cliente $cliente, Vehiculo $vehiculo)
     {
-        Gate::authorize('asignar vehiculos');
         $this->authorizeCliente($cliente);
         $cliente->vehiculos()->detach($vehiculo->id);
         return redirect()->route('clientes.show', $cliente)

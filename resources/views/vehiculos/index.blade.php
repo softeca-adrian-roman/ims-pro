@@ -1,4 +1,8 @@
 <x-app-layout>
+    <flux:breadcrumbs>
+        <flux:breadcrumbs.item href="{{ route('dashboard') }}">Dashboard</flux:breadcrumbs.item>
+        <flux:breadcrumbs.item>Vehículos</flux:breadcrumbs.item>
+    </flux:breadcrumbs>
     <div class="flex items-center justify-between mb-4">
         <h1 class="text-2xl font-bold">Vehículos</h1>
         @can('crear vehiculos')
@@ -27,13 +31,13 @@
                     <td class="px-6 py-4 whitespace-nowrap">{{ $vehiculo->referencia }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ $vehiculo->stock }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-right">
-                        <a href="{{ route('vehiculos.show', $vehiculo) }}" class="text-blue-600">Ver</a>
-                        @can('editar vehiculos') <a href="{{ route('vehiculos.edit', $vehiculo) }}" class="ml-2 text-indigo-600">Editar</a> @endcan
+                        <flux:button size="sm" variant="outline" href="{{ route('vehiculos.show', $vehiculo) }}" class="ml-2">Ver</flux:button>
+                        @can('editar vehiculos') <flux:button size="sm" variant="filled" href="{{ route('vehiculos.edit', $vehiculo) }}" class="ml-2">Editar</flux:button> @endcan
                         @can('eliminar vehiculos')
-                            <form action="{{ route('vehiculos.destroy', $vehiculo) }}" method="POST" style="display:inline-block" class="delete-form ml-2">
+                            <form action="{{ route('vehiculos.destroy', $vehiculo) }}" method="POST" style="display:inline-block" class="delete-form ml-2 inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-red-600 hover:text-red-900">Borrar</button>
+                                <flux:button size="sm" variant="danger" type="submit">Borrar</flux:button>
                             </form>
                         @endcan
                     </td>

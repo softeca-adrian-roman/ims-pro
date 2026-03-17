@@ -7,13 +7,14 @@
 
     <div class="container mx-auto">
         <h1 class="text-2xl font-bold mb-4">Crear Vendedor</h1>
-        <form action="{{ route('vendedores.store') }}" method="POST">
+        <form action="{{ route('vendedores.store') }}" method="POST" class="space-y-4">
             @csrf
-            <flux:input name="name" label="Nombre" placeholder="Nombre" required class="border rounded p-2 mb-2 w-full" />
-            <flux:input name="email" label="Email" placeholder="Email" required class="border rounded p-2 mb-2 w-full" />
-            <flux:input name="password" type="password" label="Password" placeholder="Password" required class="border rounded p-2 mb-2 w-full" />
-            <flux:input name="password_confirmation" type="password" label="Confirmar" placeholder="Confirmar" required class="border rounded p-2 mb-2 w-full" />
-            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">Crear</button>
+            <flux:input name="name" label="Nombre" placeholder="Nombre" required class="input" />
+            <flux:input name="email" label="Email" placeholder="Email" required class="input" />
+            <flux:input name="password" type="password" label="Password" placeholder="Password" required class="input" />
+            <flux:input name="password_confirmation" type="password" label="Confirmar" placeholder="Confirmar" required class="input" />
+            <flux:button size="sm" variant="outline" class="ml-2" type="submit">Crear</flux:button>
+            <flux:button size="sm" variant="danger" class="ml-2" href="{{ route('vendedores.index') }}">Cancelar</flux:button>
         </form>
     </div>
 </x-app-layout>

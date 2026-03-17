@@ -7,14 +7,15 @@
 
     <div class="container mx-auto">
         <h1 class="text-2xl font-bold mb-4">Editar Vendedor</h1>
-        <form action="{{ route('vendedores.update', $vendedor) }}" method="POST" class="submit-form">
+        <form action="{{ route('vendedores.update', $vendedor) }}" method="POST" class="space-y-4 submit-form">
             @csrf
             @method('PUT')
-            <flux:input name="name" label="Nombre" value="{{ $vendedor->name }}" placeholder="Nombre" required class="border rounded p-2 mb-2 w-full" />
-            <flux:input name="email" label="Email" value="{{ $vendedor->email }}" placeholder="Email" required class="border rounded p-2 mb-2 w-full" />
-            <flux:input name="password" type="password" label="Password" placeholder="Password" class="border rounded p-2 mb-2 w-full" />
-            <flux:input name="password_confirmation" type="password" label="Confirmar" placeholder="Confirmar" class="border rounded p-2 mb-2 w-full" />
-            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">Guardar</button>
+            <flux:input name="name" label="Nombre" value="{{ $vendedor->name }}" placeholder="Nombre" required class="input" />
+            <flux:input name="email" label="Email" value="{{ $vendedor->email }}" placeholder="Email" required class="input" />
+            <flux:input name="password" type="password" label="Password" placeholder="Password" class="input" />
+            <flux:input name="password_confirmation" type="password" label="Confirmar" placeholder="Confirmar" class="input" />
+            <flux:button size="sm" variant="outline" class="ml-2" type="submit">Actualizar</flux:button>
+            <flux:button size="sm" variant="danger" class="ml-2" href="{{ route('vendedores.index') }}" >Cancelar</flux:button>
         </form>
     </div>
 </x-app-layout>

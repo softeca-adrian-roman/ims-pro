@@ -66,8 +66,8 @@
             @endif
 
             <div>
-                <flux:button class="btn btn-primary" type="submit">Crear</flux:button>
-                <a href="{{ route('clientes.index') }}" class="btn">Cancelar</a>
+                <flux:button size="sm" variant="outline" class="ml-2" type="submit">Crear</flux:button>
+                <flux:button size="sm" variant="danger" class="ml-2" href="{{ route('clientes.index') }}" >Cancelar</flux:button>
             </div>
         </form>
     </div>
