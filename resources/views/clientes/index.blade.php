@@ -79,6 +79,5 @@
             </tbody>
         </table>
     </div>
-
     <div class="mt-4">{{ $clientes->links() }}</div>
 </x-app-layout>
