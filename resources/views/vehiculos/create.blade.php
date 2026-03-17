@@ -1,0 +1,30 @@
+<x-app-layout>
+    <flux:breadcrumbs>
+        <flux:breadcrumbs.item href="{{ route('dashboard') }}">Dashboard</flux:breadcrumbs.item>
+        <flux:breadcrumbs.item href="{{ route('vehiculos.index') }}">Vehículos</flux:breadcrumbs.item>
+        <flux:breadcrumbs.item>Crear</flux:breadcrumbs.item>
+    </flux:breadcrumbs>
+    <div class="container mx-auto">
+        <h1 class="text-2xl font-bold mb-4">Crear Vehículo</h1>
+
+        <form action="{{ route('vehiculos.store') }}" method="POST" class="space-y-4">
+            @csrf
+            <div>
+                <flux:input name="nombre" label="Nombre" value="{{ old('nombre') }}" class="input" required />
+                @error('nombre') <p class="text-red-600">{{ $message }}</p> @enderror
+            </div>
+            <div>
+                <flux:input name="referencia" label="Referencia" value="{{ old('referencia') }}" class="input" required />
+                @error('referencia') <p class="text-red-600">{{ $message }}</p> @enderror
+            </div>
+            <div>
+                <flux:input name="stock" type="number" label="Stock" value="{{ old('stock', 0) }}" class="input" min="0" />
+                @error('stock') <p class="text-red-600">{{ $message }}</p> @enderror
+            </div>
+            <div>
+                <flux:button size="sm" variant="outline" class="ml-2" type="submit">Crear</flux:button>
+                <flux:button size="sm" variant="danger" class="ml-2" href="{{ route('vehiculos.index') }}">Cancelar</flux:button>
+            </div>
+        </form>
+    </div>
+</x-app-layout>
