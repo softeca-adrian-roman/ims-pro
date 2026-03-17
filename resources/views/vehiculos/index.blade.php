@@ -21,6 +21,7 @@
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Referencia</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Precio base</th>
                     <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
                 </tr>
             </thead>
@@ -30,6 +31,7 @@
                     <td class="px-6 py-4 whitespace-nowrap">{{ $vehiculo->nombre }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ $vehiculo->referencia }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ $vehiculo->stock }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ number_format($vehiculo->precio_base, 2) }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-right">
                         <flux:button size="sm" variant="outline" href="{{ route('vehiculos.show', $vehiculo) }}" class="ml-2">Ver</flux:button>
                         @can('editar vehiculos') <flux:button size="sm" variant="filled" href="{{ route('vehiculos.edit', $vehiculo) }}" class="ml-2">Editar</flux:button> @endcan

@@ -23,6 +23,10 @@
                 @error('stock') <p class="text-red-600">{{ $message }}</p> @enderror
             </div>
             <div>
+                <flux:input name="precio_base" type="number" label="Precio base" value="{{ old('precio', 0) }}" class="input" min="0" required />
+                @error('precio') <p class="text-red-600">{{ $message }}</p> @enderror
+            </div>
+            <div>
                 <flux:button size="sm" variant="outline" class="ml-2" type="submit">Actualizar</flux:button>
                 <flux:button size="sm" variant="danger" class="ml-2" href="{{ route('vehiculos.index') }}" >Cancelar</flux:button>
             </div>

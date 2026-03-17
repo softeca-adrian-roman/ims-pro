@@ -26,6 +26,7 @@ class VehiculoController extends Controller
             'nombre' => 'required',
             'referencia' => 'required|unique:vehiculos',
             'stock' => 'required|integer|min:0',
+            'precio_base' => 'required|numeric|min:0',
         ]);
         Vehiculo::create($data);
         return redirect()->route('vehiculos.index')->with('success', 'Vehículo creado.');
@@ -47,6 +48,7 @@ class VehiculoController extends Controller
             'nombre' => 'required',
             'referencia' => 'required|unique:vehiculos,referencia,' . $vehiculo->id,
             'stock' => 'required|integer|min:0',
+            'precio_base' => 'required|numeric|min:0',
         ]);
         $vehiculo->update($data);
         return redirect()->route('vehiculos.index')->with('success', 'Vehículo actualizado.');
