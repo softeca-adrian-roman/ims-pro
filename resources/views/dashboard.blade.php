@@ -11,9 +11,7 @@
                 <div class="p-6 text-gray-900">
                     <h1 class="text-2xl font-bold mb-4">Bienvenido al Dashboard</h1>
                     <p class="mt-4">{{ __("Estás logueado correctamente con la cuenta :email", ['email' => auth()->user()->email]) }}</p>
-                    <br />
-                    <hr>
-                    <br />
+                    <hr class="border-gray-300 my-2">
                     <p>Desde aquí puedes gestionar:</p>
                     <ul class="list-disc pl-5">
                         <li><flux:link href="{{ route('clientes.index') }}">Clientes</flux:link></li>
