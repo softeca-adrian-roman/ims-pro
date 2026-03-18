@@ -53,7 +53,7 @@
                         <flux:select name="vehiculo_id" label="Vehículo" class="w-full">
                             @foreach($vehiculosDisponibles as $veh)
                                 <option value="{{ $veh->id }}">
-                                    {{ $veh->nombre }} ({{ $veh->referencia }}) - Precio sugerido: {{ number_format($veh->precioPara($cliente), 2, ',', '.') }}€
+                                    {{ $veh->nombre }} ({{ $veh->referencia }}) - Precio sugerido: {{ number_format($veh->precioPara($cliente), 2, ',', '.') }} €
                                 </option>
                             @endforeach
                         </flux:select>

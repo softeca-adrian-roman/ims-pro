@@ -47,7 +47,7 @@
                     <td class="px-6 py-4 whitespace-nowrap">{{ $vehiculo->nombre }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ $vehiculo->referencia }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ $vehiculo->stock }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">{{ number_format($vehiculo->precio_base, 2, ',', '.') }}€</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ number_format($vehiculo->precio_base, 2, ',', '.') }} €</td>
                     <td class="px-6 py-4 whitespace-nowrap text-right">
                         <flux:button size="sm" variant="outline" href="{{ route('vehiculos.show', $vehiculo) }}" class="ml-2" icon="eye" title="Ver vehículo"></flux:button>
                         @can('eliminar vehiculos')
