@@ -36,9 +36,9 @@ if ($user && $user->hasRole('admin')) {
 
 <flux:sidebar sticky collapsible="mobile" class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
     <flux:sidebar.header>
-        <a href="{{ route('dashboard') }}" class="flex items-center gap-2 px-2 text-lg font-semibold">
-            {{ config('app.name', 'IMS') }}
-        </a>
+        <flux:button href="{{ route('dashboard') }}" class="flex items-center gap-2 px-2 text-lg font-semibold">
+            {{ "Invicta Management System" }}
+        </flux:button>
         <flux:sidebar.collapse class="lg:hidden" />
     </flux:sidebar.header>
 
