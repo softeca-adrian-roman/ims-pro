@@ -29,7 +29,7 @@
         <div class="mb-4 p-4 bg-green-50 border border-green-200 rounded">{{ session('success') }}</div>
     @endif
     <table class="min-w-full divide-y divide-gray-200 w-full table-auto">
-        <thead class="bg-gray-50">
+        <thead class="bg-gray-200">
             <tr>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
@@ -38,7 +38,7 @@
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
             @foreach($vendedores as $v)
-            <tr>
+            <tr class="{{ $loop->odd ? 'bg-gray-50' : 'bg-gray-100' }}">
                 <td class="px-6 py-4 whitespace-nowrap">{{ $v->name }}</td>
                 <td class="px-6 py-4 whitespace-nowrap">{{ $v->email }}</td>
                 <td class="px-6 py-4 whitespace-nowrap">

@@ -56,7 +56,7 @@
     @endif
     <div class="overflow-hidden">
         <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
+            <thead class="bg-gray-200">
                 <tr>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
@@ -70,7 +70,7 @@
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
                 @foreach($clientes as $cliente)
-                <tr>
+                <tr class="{{ $loop->odd ? 'bg-gray-50' : 'bg-gray-100' }}">
                     <td class="px-6 py-4 whitespace-nowrap">{{ $cliente->nombre }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ $cliente->email }}</td>
                     @can('ver vendedores')
