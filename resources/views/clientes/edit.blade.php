@@ -46,7 +46,7 @@
                 <flux:select name="tipo" label="Tipo*" required class="input">
                     <option value="">Seleccionar</option>
                     @foreach($tipos as $t)
-                        <option value="{{ $t }}" @selected(old('tipo', $cliente->tipo) == $t)>{{ ucfirst($t) }}</option>
+                        <option value="{{ $t }}" @selected(old('tipo', $cliente->tipo->value) == $t)>{{ ucfirst($t) }}</option>
                     @endforeach
                 </flux:select>
                 @error('tipo') <p class="text-red-600">{{ $message }}</p> @enderror
@@ -67,7 +67,7 @@
             @endif
 
             <div class="flex items-center justify-end space-x-2">
-                <flux:button size="sm" variant="danger" class="ml-2" href="{{ route('clientes.index') }}" >Cancelar</flux:button>
+                <flux:button size="sm" variant="danger" class="ml-2" href="{{ route('clientes.index') }}">Cancelar</flux:button>
                 <flux:button size="sm" variant="outline" class="ml-2" type="submit">Actualizar</flux:button>
             </div>
         </form>

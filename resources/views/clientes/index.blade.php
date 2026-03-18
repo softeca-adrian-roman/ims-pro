@@ -38,15 +38,15 @@
                     <td class="px-6 py-4 whitespace-nowrap">{{ $cliente->provincia->nombre ?? '' }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ ucfirst($cliente->tipo->value) }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-right">
-                        <flux:button size="sm" variant="outline" href="{{ route('clientes.show', $cliente) }}" class="ml-2">Ver</flux:button>
+                        <flux:button size="sm" variant="outline" href="{{ route('clientes.show', $cliente) }}" class="ml-2" icon="eye" title="Ver cliente"></flux:button>
                         @can('eliminar clientes')
-                            <form action="{{ route('clientes.destroy', $cliente) }}" method="POST" style="display:inline-block" class="ml-2 delete-form inline">
+                            <form action="{{ route('clientes.destroy', $cliente) }}" method="POST" style="display:inline-block" class="delete-form inline">
                                 @csrf
                                 @method('DELETE')
-                                <flux:button size="sm" variant="danger" type="submit">Borrar</flux:button>
+                                <flux:button size="sm" variant="danger" type="submit" class="ml-2" icon="trash" title="Eliminar cliente"></flux:button>
                             </form>
                         @endcan
-                        @can('editar clientes') <flux:button size="sm" variant="filled" href="{{ route('clientes.edit', $cliente) }}" class="ml-2">Editar</flux:button> @endcan
+                        @can('editar clientes') <flux:button size="sm" variant="filled" href="{{ route('clientes.edit', $cliente) }}" class="ml-2" icon="pencil" title="Editar cliente"></flux:button> @endcan
                     </td>
                 </tr>
                 @endforeach

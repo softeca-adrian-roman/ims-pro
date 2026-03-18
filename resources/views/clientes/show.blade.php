@@ -29,7 +29,7 @@
                             <td class="px-6 py-4 whitespace-nowrap text-right">
                                 <form method="POST" class="delete-form inline" action="{{ route('clientes.vehiculos.destroy', [$cliente, $v]) }}">
                                     @csrf @method('DELETE')
-                                    <flux:button size="sm" variant="danger" type="submit">Eliminar</flux:button>
+                                    <flux:button size="sm" variant="danger" type="submit" icon="trash" title="Eliminar vehículo"></flux:button>
                                 </form>
                             </td>
                         </tr>
@@ -57,7 +57,7 @@
                 </div>
                 <div class="flex items-center space-x-2">
                     <flux:button size="sm" variant="danger" href="{{ route('clientes.index') }}">Cancelar</flux:button>
-                    <flux:button size="sm" variant="outline" type="submit">Asignar</flux:button>
+                    <flux:button size="sm" variant="outline" type="submit" >Asignar</flux:button>
                 </div>
             </div>
         </form>

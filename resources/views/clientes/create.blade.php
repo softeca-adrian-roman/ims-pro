@@ -64,8 +64,8 @@
             @endif
 
             <div class="flex items-center justify-end space-x-2">
-                <flux:button size="sm" variant="danger" class="ml-2" href="{{ route('clientes.index') }}" >Cancelar</flux:button>
-                <flux:button size="sm" variant="outline" class="ml-2" type="submit">Crear</flux:button>
+                <flux:button size="sm" variant="danger" class="ml-2" href="{{ route('clientes.index') }}" icon="x">Cancelar</flux:button>
+                <flux:button size="sm" variant="outline" class="ml-2" type="submit" icon="check">Crear</flux:button>
             </div>
         </form>
     </div>

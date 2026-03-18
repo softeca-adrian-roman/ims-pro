@@ -27,11 +27,11 @@
                 <td class="px-6 py-4 whitespace-nowrap">{{ $v->name }}</td>
                 <td class="px-6 py-4 whitespace-nowrap">{{ $v->email }}</td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <flux:button size="sm" variant="outline" href="{{ route('vendedores.edit', $v) }}" class="ml-2">Editar</flux:button>
+                    <flux:button size="sm" variant="outline" href="{{ route('vendedores.edit', $v) }}" class="ml-2" icon="pencil" title="Editar vendedor"></flux:button>
                     <form action="{{ route('vendedores.destroy', $v) }}" method="POST" style="display:inline-block" class="delete-form ml-2">
                         @csrf
                         @method('DELETE')
-                        <flux:button size="sm" variant="danger" type="submit">Borrar</flux:button>
+                        <flux:button size="sm" variant="danger" type="submit" icon="trash" title="Eliminar vendedor"></flux:button>
                     </form>
                 </td>
             </tr>
