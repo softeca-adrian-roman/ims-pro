@@ -10,6 +10,22 @@
         @endcan
     </div>
 
+    <div class="mb-4 bg-white p-4 rounded-md shadow"><h1 class="text-lg font-bold">Filtros</h1>
+        <hr class="border-gray-300 my-2">
+        <form method="GET" action="{{ route('vehiculos.index') }}" class="grid grid-cols-1 md:grid-cols-3 gap-2 items-end">
+            <div>
+                <flux:input name="nombre" label="Nombre" value="{{ request('nombre') }}" class="input" />
+            </div>
+            <div>
+                <flux:input name="referencia" label="Referencia" value="{{ request('referencia') }}" class="input" />
+            </div>
+            <div class="flex space-x-2">
+                <flux:button variant="outline" type="submit" icon="magnifying-glass"></flux:button>
+                <flux:button variant="outline" href="{{ route('vehiculos.index') }}" class="inline-flex items-center px-3 py-2 border rounded-md" icon="backspace"></flux:button>
+            </div>
+        </form>
+    </div>
+
     @if(session('success'))
         <div class="mb-4 p-4 bg-green-50 border border-green-200 rounded">{{ session('success') }}</div>
     @endif

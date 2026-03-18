@@ -11,10 +11,18 @@ class VendedorController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $query = User::role('responsable_de_zona');
 
-        $vendedores = User::role('responsable_de_zona')->paginate(10);
+        if ($request->filled('name')) {
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
+        if ($request->filled('email')) {
+            $query->where('email', 'like', '%' . $request->email . '%');
+        }
+
+        $vendedores = $query->paginate(10)->withQueryString();
 
         return view('vendedores.index', compact('vendedores'));
     }

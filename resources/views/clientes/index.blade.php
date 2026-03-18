@@ -10,6 +10,47 @@
             <a href="{{ route('clientes.create') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md">Crear Cliente</a>
         @endcan
     </div>
+    <div class="mb-4 bg-white p-4 rounded-md shadow"><h1 class="text-lg font-bold">Filtros</h1>
+        <hr class="border-gray-300 my-2">
+        <form method="GET" action="{{ route('clientes.index') }}" class="grid grid-cols-1 md:grid-cols-6 gap-2 items-end">
+            <div>
+                <flux:input name="nombre" label="Nombre" value="{{ request('nombre') }}" class="input" />
+            </div>
+            <div>
+                <flux:input name="email" label="Email" value="{{ request('email') }}" class="input" />
+            </div>
+            @can('ver vendedores')
+            <div>
+                <flux:select name="vendedor_id" label="Vendedor" class="input">
+                    <option value="">Todos</option>
+                    @foreach($vendedores as $v)
+                        <option value="{{ $v->id }}" @selected(request('vendedor_id') == $v->id)>{{ $v->name }}</option>
+                    @endforeach
+                </flux:select>
+            </div>
+            @endcan
+            <div>
+                <flux:select name="provincia_id" label="Provincia" class="input">
+                    <option value="">Todas</option>
+                    @foreach($provincias as $prov)
+                        <option value="{{ $prov->id }}" @selected(request('provincia_id') == $prov->id)>{{ $prov->nombre }}</option>
+                    @endforeach
+                </flux:select>
+            </div>
+            <div>
+                <flux:select name="tipo" label="Tipo" class="input">
+                    <option value="">Todos</option>
+                    @foreach($tipos as $t)
+                        <option value="{{ $t }}" @selected(request('tipo') == $t)>{{ ucfirst($t) }}</option>
+                    @endforeach
+                </flux:select>
+            </div>
+            <div class="md:col-span-1 flex space-x-2">
+                <flux:button variant="outline" type="submit" icon="magnifying-glass"></flux:button>
+                <flux:button variant="outline" href="{{ route('clientes.index') }}" class="inline-flex items-center px-3 py-2 border rounded-md" icon="backspace"></flux:button>
+            </div>
+        </form>
+    </div>
     @if(session('success'))
         <div data-flash-success="{{ session('success') }}" style="display:none"></div>
     @endif

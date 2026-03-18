@@ -11,7 +11,16 @@ class VehiculoController extends Controller
     // permission middleware is applied per-route in routes/web.php
     public function index()
     {
-        $vehiculos = Vehiculo::paginate(10);
+        $query = Vehiculo::query();
+
+        if (request()->filled('nombre')) {
+            $query->where('nombre', 'like', '%' . request('nombre') . '%');
+        }
+        if (request()->filled('referencia')) {
+            $query->where('referencia', 'like', '%' . request('referencia') . '%');
+        }
+
+        $vehiculos = $query->paginate(10)->withQueryString();
         return view('vehiculos.index', compact('vehiculos'));
     }
 

@@ -26,19 +26,44 @@ class ClienteController extends Controller
             abort(403);
         }
     }
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
         /** @var \App\Models\User|null $user */
         if (! $user) {
             abort(403);
         }
+
+        $provincias = Provincia::all();
+        $tipos = ClienteTipo::values();
+
         if ($user->hasRole('admin')) {
-            $clientes = Cliente::with('vendedor', 'provincia')->paginate(10);
+            $vendedores = User::role('responsable_de_zona')->get();
+            $query = Cliente::with('vendedor', 'provincia');
         } else {
-            $clientes = $user->clientes()->with('vendedor', 'provincia')->paginate(10);
+            $vendedores = collect([$user]);
+            $query = Cliente::with('vendedor', 'provincia')->where('vendedor_id', $user->id);
         }
-        return view('clientes.index', compact('clientes'));
+
+        if ($request->filled('nombre')) {
+            $query->where('nombre', 'like', '%' . $request->nombre . '%');
+        }
+        if ($request->filled('email')) {
+            $query->where('email', 'like', '%' . $request->email . '%');
+        }
+        if ($user->hasRole('admin') && $request->filled('vendedor_id')) {
+            $query->where('vendedor_id', $request->vendedor_id);
+        }
+        if ($request->filled('provincia_id')) {
+            $query->where('provincia_id', $request->provincia_id);
+        }
+        if ($request->filled('tipo')) {
+            $query->where('tipo', $request->tipo);
+        }
+
+        $clientes = $query->paginate(10)->withQueryString();
+
+        return view('clientes.index', compact('clientes', 'provincias', 'tipos', 'vendedores'));
     }
 
     public function create()
