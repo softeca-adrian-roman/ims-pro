@@ -21,7 +21,7 @@
             </div>
             @can('ver vendedores')
             <div>
-                <flux:select name="vendedor_id" label="Vendedor" class="input">
+                <flux:select name="vendedor_id" label="Vendedor" class="buscar input">
                     <option value="">Todos</option>
                     @foreach($vendedores as $v)
                         <option value="{{ $v->id }}" @selected(request('vendedor_id') == $v->id)>{{ $v->name }}</option>
@@ -30,7 +30,7 @@
             </div>
             @endcan
             <div>
-                <flux:select name="provincia_id" label="Provincia" class="input">
+                <flux:select name="provincia_id" label="Provincia" class="buscar input">
                     <option value="">Todas</option>
                     @foreach($provincias as $prov)
                         <option value="{{ $prov->id }}" @selected(request('provincia_id') == $prov->id)>{{ $prov->nombre }}</option>
@@ -38,7 +38,7 @@
                 </flux:select>
             </div>
             <div>
-                <flux:select name="tipo" label="Tipo" class="input">
+                <flux:select name="tipo" label="Tipo" class="buscar input">
                     <option value="">Todos</option>
                     @foreach($tipos as $t)
                         <option value="{{ $t }}" @selected(request('tipo') == $t)>{{ ucfirst($t) }}</option>
@@ -121,6 +121,14 @@
                         });
                     });
                 });
+            });
+        </script>
+        <script>
+            $('.buscar').select2({
+            theme: 'tailwindcss-3',
+            placeholder: 'Seleccionar',
+            allowClear: true,
+            width: '100%'
             });
         </script>
     @endpush

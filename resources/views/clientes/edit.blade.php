@@ -33,7 +33,7 @@
             </div>
 
             <div>
-                <flux:select name="provincia_id" label="Provincia*" required class="input">
+                <flux:select name="provincia_id" label="Provincia*" required class="buscar input">
                     <option value="">Seleccionar</option>
                     @foreach($provincias as $prov)
                         <option value="{{ $prov->id }}" @selected(old('provincia_id', $cliente->provincia_id) == $prov->id)>{{ $prov->nombre }}</option>
@@ -43,7 +43,7 @@
             </div>
 
             <div>
-                <flux:select name="tipo" label="Tipo*" required class="input">
+                <flux:select name="tipo" label="Tipo*" required class="buscar input">
                     <option value="">Seleccionar</option>
                     @foreach($tipos as $t)
                         <option value="{{ $t }}" @selected(old('tipo', $cliente->tipo->value) == $t)>{{ ucfirst($t) }}</option>
@@ -54,7 +54,7 @@
 
             @if(isset($vendedores) && $vendedores->count() > 1)
                 <div>
-                    <flux:select name="vendedor_id" label="Vendedor*" class="input">
+                    <flux:select name="vendedor_id" label="Vendedor*" class="buscar input">
                         <option value="">Seleccionar</option>
                         @foreach($vendedores as $v)
                             <option value="{{ $v->id }}" @selected(old('vendedor_id', $cliente->vendedor_id) == $v->id)>{{ $v->name }}</option>
@@ -72,4 +72,12 @@
             </div>
         </form>
     </div>
+        <script>
+            $('.buscar').select2({
+            theme: 'tailwindcss-3',
+            placeholder: 'Seleccionar',
+            allowClear: true,
+            width: '100%'
+            });
+        </script>
 </x-app-layout>

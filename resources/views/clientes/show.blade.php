@@ -50,7 +50,7 @@
                 @csrf
                 <div class="flex items-end space-x-4">
                     <div class="flex-1">
-                        <flux:select name="vehiculo_id" label="Vehículo" class="w-full">
+                        <flux:select name="vehiculo_id" label="Vehículo" class="buscar w-full">
                             @foreach($vehiculosDisponibles as $veh)
                                 <option value="{{ $veh->id }}">
                                     {{ $veh->nombre }} ({{ $veh->referencia }}) - Precio sugerido: {{ number_format($veh->precioPara($cliente), 2, ',', '.') }} €
@@ -97,5 +97,13 @@
                 </div>
             </div>
         </div>
+        <script>
+            $('.buscar').select2({
+            theme: 'tailwindcss-3',
+            placeholder: 'Seleccionar',
+            allowClear: true,
+            width: '100%'
+            });
+        </script>
 
 </x-app-layout>
