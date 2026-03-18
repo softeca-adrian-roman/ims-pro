@@ -36,7 +36,7 @@
                 </td>
             </tr>
             @endforeach
-                @push('js')
+            @push('js')
                 <script>
                     document.addEventListener('DOMContentLoaded', function() {
                         let forms = document.querySelectorAll('.delete-form');

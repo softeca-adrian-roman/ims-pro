@@ -19,7 +19,9 @@
                 <tr>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Vendedor</th>
+                    @can('ver vendedores')
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Vendedor</th>
+                    @endcan
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Provincia</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tipo</th>
                     <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
@@ -30,12 +32,13 @@
                 <tr>
                     <td class="px-6 py-4 whitespace-nowrap">{{ $cliente->nombre }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ $cliente->email }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">{{ $cliente->vendedor->name ?? '' }}</td>
+                    @can('ver vendedores')
+                        <td class="px-6 py-4 whitespace-nowrap">{{ $cliente->vendedor->name ?? '' }}</td>
+                    @endcan
                     <td class="px-6 py-4 whitespace-nowrap">{{ $cliente->provincia->nombre ?? '' }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ ucfirst($cliente->tipo->value) }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-right">
                         <flux:button size="sm" variant="outline" href="{{ route('clientes.show', $cliente) }}" class="ml-2">Ver</flux:button>
-                        @can('editar clientes') <flux:button size="sm" variant="filled" href="{{ route('clientes.edit', $cliente) }}" class="ml-2">Editar</flux:button> @endcan
                         @can('eliminar clientes')
                             <form action="{{ route('clientes.destroy', $cliente) }}" method="POST" style="display:inline-block" class="ml-2 delete-form inline">
                                 @csrf
@@ -43,39 +46,41 @@
                                 <flux:button size="sm" variant="danger" type="submit">Borrar</flux:button>
                             </form>
                         @endcan
+                        @can('editar clientes') <flux:button size="sm" variant="filled" href="{{ route('clientes.edit', $cliente) }}" class="ml-2">Editar</flux:button> @endcan
                     </td>
                 </tr>
                 @endforeach
-                @push('js')
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function() {
-                            let forms = document.querySelectorAll('.delete-form');
-
-                            forms.forEach(form => {
-                                form.addEventListener('submit', (e) => {
-                                    e.preventDefault();
-
-                                    Swal.fire({
-                                        title: "¿Quieres eliminar este cliente?",
-                                        text: "Estás seguro de este cambio?",
-                                        icon: "warning",
-                                        showCancelButton: true,
-                                        confirmButtonColor: "#3085d6",
-                                        cancelButtonColor: "#d33",
-                                        confirmButtonText: "Sí, eliminar",
-                                        cancelButtonText: "Cancelar"
-                                    }).then((result) => {
-                                        if (result.isConfirmed) {
-                                            form.submit();
-                                        }
-                                    });
-                                });
-                            });
-                        });
-                    </script>
-                @endpush
             </tbody>
         </table>
     </div>
     <div class="mt-4">{{ $clientes->links() }}</div>
+
+    @push('js')
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                let forms = document.querySelectorAll('.delete-form');
+
+                forms.forEach(form => {
+                    form.addEventListener('submit', (e) => {
+                        e.preventDefault();
+
+                        Swal.fire({
+                            title: "¿Quieres eliminar este cliente?",
+                            text: "Estás seguro de este cambio?",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#3085d6",
+                            cancelButtonColor: "#d33",
+                            confirmButtonText: "Sí, eliminar",
+                            cancelButtonText: "Cancelar"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                form.submit();
+                            }
+                        });
+                    });
+                });
+            });
+        </script>
+    @endpush
 </x-app-layout>

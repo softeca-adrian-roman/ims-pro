@@ -6,32 +6,89 @@
     </flux:breadcrumbs>
 
     <div class="container mx-auto">
-        <h1 class="text-2xl font-bold">{{ $cliente->nombre }}</h1>
-        <p>{{ $cliente->email }}</p>
-        <p>{{ $cliente->telefono }}</p>
-        <h2 class="mt-4">Vehículos asignados</h2>
-        <ul class="space-y-4">
-            @foreach($vehiculosAsignados as $v)
-                <li>
-                    <div class="mt-4 mb-2">
-                    {{ $v->nombre }} - {{ $v->pivot->precio }}
-                    </div>
-                <form method="POST" class="space-y-4" action="{{ route('clientes.vehiculos.destroy', [$cliente, $v]) }}">@csrf @method('DELETE')
-                <flux:button size="sm" variant="danger" class="space-y-4 ml-2" type="submit">Designar</flux:button>
-                </form></li>
-            @endforeach
-        </ul>
+        <div class="flex items-center justify-between mb-4">
+            <h1 class="text-2xl font-bold">{{ $cliente->nombre }}</h1>
+            <p class="text-gray-600">{{ $cliente->email }} | {{ $cliente->telefono }}</p>
+        </div>
 
-        <h3 class="mt-4">Asignar vehículo</h3>
-        <form method="POST" class="space-y-4" action="{{ route('clientes.vehiculos.store', $cliente) }}">
+        <h2 class="mt-4 text-xl font-semibold">Vehículos asignados</h2>
+        <div class="overflow-hidden mt-2">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Vehículo</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Precio</th>
+                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    @forelse($vehiculosAsignados as $v)
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ $v->nombre }} ({{ $v->referencia }})</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ number_format($v->pivot->precio, 2, ',', '.') }} €</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right">
+                                <form method="POST" class="delete-form inline" action="{{ route('clientes.vehiculos.destroy', [$cliente, $v]) }}">
+                                    @csrf @method('DELETE')
+                                    <flux:button size="sm" variant="danger" type="submit">Eliminar</flux:button>
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="3" class="px-6 py-4 text-center text-gray-500">No hay vehículos asignados.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="mt-4 text-lg font-semibold">Asignar nuevo vehículo</h3>
+        <form method="POST" action="{{ route('clientes.vehiculos.store', $cliente) }}" class="mt-2">
             @csrf
-            <flux:select name="vehiculo_id">
-                @foreach($vehiculosDisponibles as $veh)
-                    <option value="{{ $veh->id }}">{{ $veh->nombre }} ({{ $veh->referencia }}) - Precio sugerido: {{ number_format($veh->precioPara($cliente), 2) }}</option>
-                @endforeach
-            </flux:select>
-            <flux:button size="sm" variant="outline" class="ml-2" type="submit">Asignar</flux:button>
-            <flux:button size="sm" variant="danger" class="ml-2" href="{{ route('clientes.index') }}" >Cancelar</flux:button>
+            <div class="flex items-end space-x-4">
+                <div class="flex-1">
+                    <flux:select name="vehiculo_id" label="Vehículo" class="w-full">
+                        @foreach($vehiculosDisponibles as $veh)
+                            <option value="{{ $veh->id }}">
+                                {{ $veh->nombre }} ({{ $veh->referencia }}) - Precio sugerido: {{ number_format($veh->precioPara($cliente), 2, ',', '.') }}€
+                            </option>
+                        @endforeach
+                    </flux:select>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <flux:button size="sm" variant="danger" href="{{ route('clientes.index') }}">Cancelar</flux:button>
+                    <flux:button size="sm" variant="outline" type="submit">Asignar</flux:button>
+                </div>
+            </div>
         </form>
     </div>
+
+    @push('js')
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                let forms = document.querySelectorAll('.delete-form');
+
+                forms.forEach(form => {
+                    form.addEventListener('submit', (e) => {
+                        e.preventDefault();
+
+                        Swal.fire({
+                            title: "¿Quieres eliminar este vehículo?",
+                            text: "Estás seguro de este cambio?",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#3085d6",
+                            cancelButtonColor: "#d33",
+                            confirmButtonText: "Sí, eliminar",
+                            cancelButtonText: "Cancelar"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                form.submit();
+                            }
+                        });
+                    });
+                });
+            });
+        </script>
+    @endpush
 </x-app-layout>

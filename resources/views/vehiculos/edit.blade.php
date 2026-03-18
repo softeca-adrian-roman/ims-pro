@@ -11,24 +11,24 @@
             @csrf
             @method('PUT')
             <div>
-                <flux:input name="nombre" label="Nombre" value="{{ old('nombre', $vehiculo->nombre) }}" class="input" required />
+                <flux:input name="nombre" label="Nombre*" value="{{ old('nombre', $vehiculo->nombre) }}" class="input" required />
                 @error('nombre') <p class="text-red-600">{{ $message }}</p> @enderror
             </div>
             <div>
-                <flux:input name="referencia" label="Referencia" value="{{ old('referencia', $vehiculo->referencia) }}" class="input" required />
+                <flux:input name="referencia" label="Referencia*" value="{{ old('referencia', $vehiculo->referencia) }}" class="input" required />
                 @error('referencia') <p class="text-red-600">{{ $message }}</p> @enderror
             </div>
             <div>
-                <flux:input name="stock" type="number" label="Stock" value="{{ old('stock', $vehiculo->stock) }}" class="input" min="0" />
+                <flux:input name="stock" type="number" label="Stock*" value="{{ old('stock', $vehiculo->stock) }}" class="input" min="0" required />
                 @error('stock') <p class="text-red-600">{{ $message }}</p> @enderror
             </div>
             <div>
-                <flux:input name="precio_base" type="number" label="Precio base" value="{{ old('precio', 0) }}" class="input" min="0" required />
-                @error('precio') <p class="text-red-600">{{ $message }}</p> @enderror
+                <flux:input name="precio_base" type="number" label="Precio base*" value="{{ old('precio_base', $vehiculo->precio_base) }}" class="input" min="0" required />
+                @error('precio_base') <p class="text-red-600">{{ $message }}</p> @enderror
             </div>
-            <div>
-                <flux:button size="sm" variant="outline" class="ml-2" type="submit">Actualizar</flux:button>
+            <div class="flex items-center justify-end space-x-2">
                 <flux:button size="sm" variant="danger" class="ml-2" href="{{ route('vehiculos.index') }}" >Cancelar</flux:button>
+                <flux:button size="sm" variant="outline" class="ml-2" type="submit">Actualizar</flux:button>
             </div>
         </form>
     </div>

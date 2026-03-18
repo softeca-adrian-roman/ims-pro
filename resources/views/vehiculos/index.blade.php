@@ -31,10 +31,9 @@
                     <td class="px-6 py-4 whitespace-nowrap">{{ $vehiculo->nombre }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ $vehiculo->referencia }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ $vehiculo->stock }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">{{ number_format($vehiculo->precio_base, 2) }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ number_format($vehiculo->precio_base, 2, ',', '.') }}€</td>
                     <td class="px-6 py-4 whitespace-nowrap text-right">
                         <flux:button size="sm" variant="outline" href="{{ route('vehiculos.show', $vehiculo) }}" class="ml-2">Ver</flux:button>
-                        @can('editar vehiculos') <flux:button size="sm" variant="filled" href="{{ route('vehiculos.edit', $vehiculo) }}" class="ml-2">Editar</flux:button> @endcan
                         @can('eliminar vehiculos')
                             <form action="{{ route('vehiculos.destroy', $vehiculo) }}" method="POST" style="display:inline-block" class="delete-form ml-2 inline">
                                 @csrf
@@ -42,6 +41,7 @@
                                 <flux:button size="sm" variant="danger" type="submit">Borrar</flux:button>
                             </form>
                         @endcan
+                        @can('editar vehiculos') <flux:button size="sm" variant="filled" href="{{ route('vehiculos.edit', $vehiculo) }}" class="ml-2">Editar</flux:button> @endcan
                     </td>
                 </tr>
                 @endforeach

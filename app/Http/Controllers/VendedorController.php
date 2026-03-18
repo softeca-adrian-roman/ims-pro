@@ -90,6 +90,11 @@ class VendedorController extends Controller
      */
     public function destroy(User $vendedor)
     {
+        foreach ($vendedor->clientes as $cliente) {
+        // Si quieres también borrar registros pivote manualmente:
+        $cliente->vehiculos()->detach(); // elimina relaciones en cliente_vehiculo
+        $cliente->delete();
+    }
         $vendedor->delete();
         return redirect()->route('vendedores.index')->with('success', 'Vendedor eliminado.');
     }
