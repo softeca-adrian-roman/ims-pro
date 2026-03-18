@@ -5,7 +5,7 @@
         <flux:breadcrumbs.item>Crear</flux:breadcrumbs.item>
     </flux:breadcrumbs>
 
-    <div class="container mx-auto">
+    <div class="mt-4 bg-white p-4 rounded-md shadow container mx-auto">
         <h1 class="text-2xl font-bold mb-4">Crear Cliente</h1>
 
         <form action="{{ route('clientes.store') }}" method="POST" class="space-y-4">
