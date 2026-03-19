@@ -22,6 +22,7 @@
                             <li><flux:link href="{{ route('vendedores.index') }}">Vendedores</flux:link></li>
                         @endcan
                     </ul>
+                    <img class="mt-2 border-6 border-gray-100 " src="https://fotografias-2.larazon.es/clipping/cmsimages02/2023/12/26/4585ADC8-B35D-4912-B224-9D4952E763F0/invicta-gama-completa-movilidad-electrica-que-llega-china_98.jpg?crop=5386,3030,x0,y284&width=1900&height=1069&optimize=low&format=webply" alt="Dashboard Imagen Invicta" class="mt-6 rounded-md shadow-md">
                 </div>
             </div>
         </div>
