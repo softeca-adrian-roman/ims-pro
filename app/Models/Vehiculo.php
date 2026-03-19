@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -55,5 +56,10 @@ class Vehiculo extends Model
             \App\Enums\ClienteTipo::CONCESIONARIO, 'concesionario' => round($precio * 0.80, 2),
             default => round($precio, 2),
         };
+    }
+    protected function precioBaseFormateado(): Attribute{
+       return  Attribute::make(
+           get: fn() => number_format($this->precio_base, 2, ',', '.'). ' €',
+       );
     }
 }

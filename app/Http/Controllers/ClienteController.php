@@ -23,7 +23,7 @@ class ClienteController extends Controller
             return true;
         }
         if ($user->id !== $cliente->vendedor_id) {
-            abort(403);
+            abort(404);
         }
     }
     public function index(Request $request)

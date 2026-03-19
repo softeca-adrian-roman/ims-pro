@@ -16,7 +16,7 @@
             <flux:input name="password_confirmation" type="password" label="Confirmar*" placeholder="Confirmar" class="input" />
             <div class="flex items-center justify-end space-x-2">
                 <flux:button size="sm" variant="danger" class="ml-2" href="{{ route('vendedores.index') }}" >Cancelar</flux:button>
-                <flux:button size="sm" variant="outline" class="ml-2" type="submit">Actualizar</flux:button>
+                <flux:button color="green" size="sm" variant="primary" class="ml-2" type="submit">Actualizar</flux:button>
             </div>
         </form>
     </div>

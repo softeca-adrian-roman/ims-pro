@@ -60,7 +60,7 @@
                     </div>
                     <div class="flex items-center space-x-2">
                         <flux:button size="sm" variant="danger" href="{{ route('clientes.index') }}">Cancelar</flux:button>
-                        <flux:button size="sm" variant="outline" type="submit">Asignar</flux:button>
+                        <flux:button color="green" size="sm" variant="primary" type="submit">Asignar</flux:button>
                     </div>
                 </div>
             </form>

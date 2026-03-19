@@ -60,11 +60,11 @@
                 class="input"
             />
 
-            <div class="flex items-center space-x-2">
+            <div class="flex items-center justify-end space-x-2">
                 <flux:button size="sm" variant="danger" href="{{ route('vendedores.index') }}">
                     Cancelar
                 </flux:button>
-                <flux:button size="sm" variant="outline" type="submit">
+                <flux:button color="green" size="sm" variant="primary" type="submit">
                     Crear
                 </flux:button>
             </div>
