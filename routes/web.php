@@ -26,6 +26,10 @@ Route::middleware(['auth'])->group(function () {
         ->name('clientes.index')
         ->middleware(PermissionMiddleware::class . ':ver clientes');
 
+    Route::get('/clientes/export/', [ClienteController::class, 'export'])
+        ->name('clientes.export')
+        ->middleware(PermissionMiddleware::class . ':ver clientes');
+
     Route::get('clientes/create', [ClienteController::class, 'create'])
         ->name('clientes.create')
         ->middleware(PermissionMiddleware::class . ':crear clientes');

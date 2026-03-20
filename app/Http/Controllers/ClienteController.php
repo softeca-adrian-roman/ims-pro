@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Enums\ClienteTipo;
+use App\Exports\ClientesExport;
+use App\Imports\ClientesImport;
 use App\Models\Cliente;
 use App\Models\Provincia;
 use App\Models\User;
 use App\Models\Vehiculo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ClienteController extends Controller
 {
@@ -175,5 +178,52 @@ class ClienteController extends Controller
         $this->authorizeCliente($cliente);
         $cliente->delete();
         return redirect()->route('clientes.index')->with('success', 'Cliente eliminado.');
+    }
+
+    public function export(Request $request)
+    {
+        $user = Auth::user();
+        /** @var \App\Models\User|null $user */
+        if (! $user) {
+            abort(403);
+        }
+
+        $provincias = Provincia::all();
+        $tipos = ClienteTipo::values();
+
+        if ($user->hasRole('admin')) {
+            $vendedores = User::role('responsable_de_zona')->get();
+            $query = Cliente::with('vendedor', 'provincia');
+        } else {
+            $vendedores = collect([$user]);
+            $query = Cliente::with('vendedor', 'provincia')->where('vendedor_id', $user->id);
+        }
+
+        if ($request->filled('nombre')) {
+            $query->where('nombre', 'like', '%' . $request->nombre . '%');
+        }
+        if ($request->filled('email')) {
+            $query->where('email', 'like', '%' . $request->email . '%');
+        }
+        if ($user->hasRole('admin') && $request->filled('vendedor_id')) {
+            $query->where('vendedor_id', $request->vendedor_id);
+        }
+        if ($request->filled('provincia_id')) {
+            $query->where('provincia_id', $request->provincia_id);
+        }
+        if ($request->filled('tipo')) {
+            $query->where('tipo', $request->tipo);
+        }
+
+        $clientes = $query->get(); // Obtenemos todos los clientes filtrados, sin paginación
+
+        return Excel::download(new ClientesExport($clientes), 'clientes.xlsx');
+    }
+
+     public function import()
+    {
+        Excel::import(new ClientesImport, 'clientes.xlsx');
+
+        return redirect('/')->with('success', 'Todos los clientes han sido importados correctamente.');
     }
 }

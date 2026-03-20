@@ -10,7 +10,18 @@
             <a href="{{ route('clientes.create') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md">Crear Cliente</a>
         @endcan
     </div>
-    <div class="mb-4 bg-white p-4 rounded-md shadow"><h1 class="text-lg font-bold">Filtros</h1>
+    <div class="mb-4 bg-white p-4 rounded-md shadow">
+        <div class="flex items-center justify-between mb-2">
+            <h1 class="text-lg font-bold">Filtros</h1>
+            <div class="flex gap-2">
+                <flux:button variant="filled" href="{{ route('clientes.export', request()->query()) }}" icon="arrow-up-on-square-stack">
+                    Exportar
+                </flux:button>
+                <flux:button variant="filled" href="{{ route('clientes.export') }}" icon="arrow-down-on-square-stack">
+                    Importar
+                </flux:button>
+            </div>
+        </div>
         <hr class="border-gray-300 my-2">
         <form method="GET" action="{{ route('clientes.index') }}" class="grid grid-cols-1 md:grid-cols-6 gap-2 items-end">
             <div>
