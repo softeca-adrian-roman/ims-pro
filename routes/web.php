@@ -37,6 +37,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('clientes', [ClienteController::class, 'store'])
         ->name('clientes.store')
         ->middleware(PermissionMiddleware::class . ':crear clientes');
+    Route::post('/clientes/import', [ClienteController::class, 'import'])
+        ->name('clientes.import')
+        ->middleware(PermissionMiddleware::class . ':crear clientes');
 
     Route::get('clientes/{cliente}', [ClienteController::class, 'show'])
         ->name('clientes.show')

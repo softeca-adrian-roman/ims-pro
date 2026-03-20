@@ -101,15 +101,15 @@ class ClienteController extends Controller
 
         $user = Auth::user();
 
-            /** @var \App\Models\User|null $user */
-            if (! $user) {
-                abort(403);
-            }
-            if ($user->hasRole('admin')) {
-                $data['vendedor_id'] = $request->vendedor_id;
-            } else {
-                $data['vendedor_id'] = $user->id;
-            }
+        /** @var \App\Models\User|null $user */
+        if (! $user) {
+            abort(403);
+        }
+        if ($user->hasRole('admin')) {
+            $data['vendedor_id'] = $request->vendedor_id;
+        } else {
+            $data['vendedor_id'] = $user->id;
+        }
 
         Cliente::create($data);
         return redirect()->route('clientes.index')->with('success', 'Cliente creado.');
@@ -159,15 +159,15 @@ class ClienteController extends Controller
 
         $user = Auth::user();
 
-            /** @var \App\Models\User|null $user */
-            if (! $user) {
-                abort(403);
-            }
-            if ($user->hasRole('admin')) {
-                $data['vendedor_id'] = $request->vendedor_id;
-            } else {
-                $data['vendedor_id'] = $user->id;
-            }
+        /** @var \App\Models\User|null $user */
+        if (! $user) {
+            abort(403);
+        }
+        if ($user->hasRole('admin')) {
+            $data['vendedor_id'] = $request->vendedor_id;
+        } else {
+            $data['vendedor_id'] = $user->id;
+        }
 
         $cliente->update($data);
         return redirect()->route('clientes.index')->with('success', 'Cliente actualizado.');
@@ -220,10 +220,21 @@ class ClienteController extends Controller
         return Excel::download(new ClientesExport($clientes), 'clientes.xlsx');
     }
 
-     public function import()
+    public function import(Request $request)
     {
-        Excel::import(new ClientesImport, 'clientes.xlsx');
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls|max:2048',
+        ]);
 
-        return redirect('/')->with('success', 'Todos los clientes han sido importados correctamente.');
+        $import = new ClientesImport;
+        Excel::import($import, $request->file('file'));
+
+        $errors = $import->getErrors();
+
+        if (count($errors) > 0) {
+            return redirect()->route('clientes.index')->with('import_errors', $errors);
+        }
+
+        return redirect()->route('clientes.index')->with('success', 'Clientes importados correctamente.');
     }
 }

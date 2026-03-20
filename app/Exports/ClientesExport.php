@@ -26,13 +26,13 @@ class ClientesExport implements FromCollection, WithHeadings, WithMapping, Shoul
     public function headings(): array
     {
         return [
-            'Nombre',
-            'Email',
-            'Teléfono',
-            'Código Postal',
-            'Provincia',
-            'Vendedor',
-            'Tipo',
+            'Nombre*',
+            'Email*',
+            'Teléfono*',
+            'Código Postal*',
+            'Provincia*',
+            'Vendedor*',
+            'Tipo*',
             'Creado',
         ];
     }
