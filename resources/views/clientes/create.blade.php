@@ -22,12 +22,12 @@
             </div>
 
             <div>
-                <flux:input name="telefono" label="Teléfono*" value="{{ old('telefono') }}" class="input" required />
+                <flux:input name="telefono" label="Teléfono" value="{{ old('telefono') }}" class="input" required />
                 @error('telefono') <p class="text-red-600">{{ $message }}</p> @enderror
             </div>
 
             <div>
-                <flux:input name="codigo_postal" label="Código postal*" value="{{ old('codigo_postal') }}" class="input" required />
+                <flux:input name="codigo_postal" label="Código postal" value="{{ old('codigo_postal') }}" class="input" required />
                 @error('codigo_postal') <p class="text-red-600">{{ $message }}</p> @enderror
             </div>
 

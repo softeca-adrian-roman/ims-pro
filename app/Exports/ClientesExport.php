@@ -14,10 +14,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 class ClientesExport implements FromCollection, WithHeadings, WithMapping, ShouldAutoSize, WithStyles
 {
 
-    public function __construct(protected Collection $clientes = new Collection())
-    {
-
-    }
+    public function __construct(protected Collection $clientes = new Collection()) {}
     public function collection()
     {
         return $this->clientes ?? Cliente::with('provincia', 'vendedor')->get();
@@ -28,8 +25,8 @@ class ClientesExport implements FromCollection, WithHeadings, WithMapping, Shoul
         return [
             'Nombre*',
             'Email*',
-            'Teléfono*',
-            'Código Postal*',
+            'Teléfono',
+            'Código Postal',
             'Provincia*',
             'Vendedor*',
             'Tipo*',
@@ -52,8 +49,17 @@ class ClientesExport implements FromCollection, WithHeadings, WithMapping, Shoul
     }
     public function styles(Worksheet $sheet)
     {
-        return [
+        $styles = [
             1 => ['font' => ['bold' => true], 'fill' => ['fillType' => 'solid', 'startColor' => ['argb' => 'e0ff8e']]],
         ];
+
+        $rowCount = $this->clientes->count();
+
+        for ($i = 2; $i <= $rowCount + 1; $i++) {
+            $styles[$i] = ['fill' => ['fillType' => 'solid', 'startColor' => ['argb' => $i % 2 == 0 ? 'f2f2f2' : 'ffffff']]];
+        }
+
+
+        return $styles;
     }
 }
