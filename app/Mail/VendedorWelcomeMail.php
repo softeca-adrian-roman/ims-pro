@@ -29,7 +29,7 @@ class VendedorWelcomeMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Bienvenido a la plataforma - Nuevo vendedor',
+            subject: 'Bienvenido a IMS - Nuevo vendedor',
         );
     }
 
