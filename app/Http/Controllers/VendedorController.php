@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\VendedorWelcomeMail;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+
 // ...existing imports...
 
 class VendedorController extends Controller
@@ -52,8 +55,9 @@ class VendedorController extends Controller
             'password' => bcrypt($data['password']),
         ]);
         $user->assignRole('responsable_de_zona');
+        Mail::to($user->email)->send(new VendedorWelcomeMail($user));
 
-        return redirect()->route('vendedores.index')->with('success', 'Vendedor creado.');
+        return redirect()->route('vendedores.index')->with('success', 'Vendedor creado y correo de bienvenida enviado.');
     }
 
     /**
